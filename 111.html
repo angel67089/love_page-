@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>给宝宝的一段话</title>
+<style>
+    /* 页面基础 */
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Microsoft YaHei", sans-serif;
+        background: linear-gradient(to bottom, #ffe6e6, #fff0f5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        color: #333;
+        position: relative;
+    }
+
+    /* 主容器 */
+    .container {
+        background: rgba(255,255,255,0.95);
+        padding: 30px 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        text-align: center;
+        position: relative;
+        max-width: 500px;
+        width: 90%;
+    }
+
+    /* 心跳动画 */
+    .heart {
+        font-size: 80px;
+        color: #e74c3c;
+        animation: beat 1s infinite;
+        margin-bottom: 20px;
+    }
+
+    @keyframes beat {
+        0%, 100% { transform: scale(1); }
+        25% { transform: scale(1.2); color: #ff6b81; }
+        50% { transform: scale(1.1); color: #e74c3c; }
+        75% { transform: scale(1.2); color: #ff4757; }
+    }
+
+    /* 文字信息 */
+    .message {
+        font-size: 18px;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        color: #555;
+    }
+
+    /* 按钮样式 */
+    button {
+        background: linear-gradient(45deg, #ff6b81, #e74c3c);
+        color: white;
+        border: none;
+        padding: 12px 25px;
+        font-size: 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+    }
+
+    button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+    }
+
+    /* 结果显示 */
+    .result {
+        margin-top: 30px;
+        font-size: 20px;
+        color: #2c3e50;
+        min-height: 50px;
+    }
+
+    /* 飘落心 */
+    .floating-heart {
+        position: absolute;
+        font-size: 20px;
+        animation: float 4s linear forwards;
+        pointer-events: none;
+    }
+
+    @keyframes float {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-400px) rotate(360deg); opacity: 0; }
+    }
+
+    /* 响应式适配 */
+    @media (max-width: 480px) {
+        .heart { font-size: 60px; }
+        .message { font-size: 16px; }
+        button { padding: 10px 20px; font-size: 14px; }
+        .result { font-size: 18px; }
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="heart">❤</div>
+    <div class="message">
+        认识你之后，<br>
+        很多事情开始变得清晰。<br><br>
+        如果可以，<br>
+        想把之后的时间，<br>
+        和你一起走。
+    </div>
+
+    <div>
+        <button onclick="choose('1')">好</button>
+        <button onclick="choose('2')">那就试试</button>
+        <button onclick="choose('3')">再等等</button>
+    </div>
+
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+function choose(option) {
+    const result = document.getElementById('result');
+    if(option === '1') {
+        result.innerHTML = "宝宝，<br>太好了，我们慢慢来。❤";
+    } else if(option === '2') {
+        result.innerHTML = "宝宝，<br>那就试试吧，一起走下去。💖";
+    } else {
+        result.innerHTML = "没关系，<br>我会一直等你。💛";
+    }
+}
+
+// 飘落心效果
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.className = 'floating-heart';
+    heart.style.left = Math.random() * window.innerWidth + 'px';
+    heart.style.fontSize = (15 + Math.random() * 25) + 'px';
+    heart.style.color = `hsl(${Math.random()*360}, 80%, 60%)`;
+    heart.style.animationDuration = (3 + Math.random() * 2) + 's';
+    heart.innerText = '❤';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+}
+
+// 每隔 400ms 出现一个心
+setInterval(createHeart, 400);
+</script>
+
+</body>
+</html>
